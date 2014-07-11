@@ -1,6 +1,8 @@
 package org.sagebionetworks;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -19,8 +21,8 @@ import org.sagebionetworks.schema.adapter.org.json.JSONObjectAdapterImpl;
 public class QuizTextToJSONConverter {
 	private static final int NUM_QUESTIONS_PER_VARIETY = 3;
 	
-	private static final String WIKI_ENTITY_PREFIX = "https://www.synapse.org/#!Synapse:";
-	private static final String WIKI_ID_PREFIX = "/wiki/";
+	private static final String WIKI_ENTITY_PREFIX = "https://www.synapse.org/#!Wiki:";
+	private static final String WIKI_ID_PREFIX = "/ENTITY/";
 	
 	public static void main(String[] args) throws Exception {
 		QuizGenerator gen = new QuizGenerator();
@@ -134,6 +136,9 @@ public class QuizTextToJSONConverter {
 		JSONObjectAdapter adapter = new JSONObjectAdapterImpl();
 		gen.writeToJSONObject(adapter);
 		String quizGeneratorAsString = adapter.toJSONString();
+		FileWriter writer = new FileWriter(new File("repository-managers.certifiedUsersTestDefault.json"));
+		writer.write(quizGeneratorAsString);
+		writer.close();
 		System.out.println(quizGeneratorAsString);
 		// format the output: http://www.freeformatter.com/json-formatter.html
 	}
