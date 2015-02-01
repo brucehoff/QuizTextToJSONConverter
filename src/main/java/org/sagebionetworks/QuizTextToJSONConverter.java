@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.sagebionetworks.repo.model.ObjectType;
 import org.sagebionetworks.repo.model.dao.WikiPageKey;
 import org.sagebionetworks.repo.model.quiz.MultichoiceAnswer;
@@ -16,6 +17,7 @@ import org.sagebionetworks.repo.model.quiz.Question;
 import org.sagebionetworks.repo.model.quiz.QuestionVariety;
 import org.sagebionetworks.repo.model.quiz.QuizGenerator;
 import org.sagebionetworks.schema.adapter.JSONObjectAdapter;
+import org.sagebionetworks.schema.adapter.JSONObjectAdapterException;
 import org.sagebionetworks.schema.adapter.org.json.JSONObjectAdapterImpl;
 
 public class QuizTextToJSONConverter {
@@ -136,12 +138,11 @@ public class QuizTextToJSONConverter {
 		JSONObjectAdapter adapter = new JSONObjectAdapterImpl();
 		gen.writeToJSONObject(adapter);
 		String quizGeneratorAsString = adapter.toJSONString();
-		FileWriter writer = new FileWriter(new File("repository-managers.certifiedUsersTestDefault.json"));
+		FileWriter writer = new FileWriter(new File("../repository-managers.certifiedUsersTestDefault.json"));
 		writer.write(quizGeneratorAsString);
 		writer.close();
 		System.out.println(quizGeneratorAsString);
 		// format the output: http://www.freeformatter.com/json-formatter.html
 	}
-
 	
 }
